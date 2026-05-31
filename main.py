@@ -138,15 +138,30 @@ def get_current_user(
 def home():
     return {"message": "Backend jalan 🚀"}
 
-@app.get("/debug-token")
-def debug_token(
-    current_user: UserDB = Depends(get_current_user)
+@app.get("/debug-jwt")
+def debug_jwt(
+    credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme)
 ):
-    return {
-        "id": current_user.id,
-        "name": current_user.name,
-        "email": current_user.email
-    }
+    token = credentials.credentials
+
+    try:
+        payload = jwt.decode(
+            token,
+            SECRET_KEY,
+            algorithms=[ALGORITHM]
+        )
+
+        return {
+            "status": "success",
+            "payload": payload
+        }
+
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": str(e)
+        }
+
 # ─────────────────────────────────────────
 # AUTH
 # ─────────────────────────────────────────

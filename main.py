@@ -30,7 +30,7 @@ app.add_middleware(
 # ─────────────────────────────────────────
 # DATABASE
 # ─────────────────────────────────────────
-DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:@localhost/doomtracker")
+DATABASE_URL = "mysql+pymysql://root:HIAcUJquaoyoFCRpGUAFlpBFeoixQciE@mysql.railway.internal:3306/railway"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()

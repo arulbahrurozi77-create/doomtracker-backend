@@ -8,6 +8,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 import hashlib
+import os
 
 # ─────────────────────────────────────────
 # CONFIG
@@ -29,7 +30,7 @@ app.add_middleware(
 # ─────────────────────────────────────────
 # DATABASE
 # ─────────────────────────────────────────
-DATABASE_URL = "mysql+pymysql://root:@localhost/doomtracker"
+DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:@localhost/doomtracker")
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
